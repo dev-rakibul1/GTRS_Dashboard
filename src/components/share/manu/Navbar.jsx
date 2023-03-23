@@ -6,16 +6,9 @@ import { NAVBAR_CONTEXT } from "../../../layout/DashboardLayout";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const { handleSidebar } = useContext(NAVBAR_CONTEXT);
+  const { handleSidebar, handleFileUploadToggle } = useContext(NAVBAR_CONTEXT);
   const [navScroll, setNavScroll] = useState("");
-  const [fileUploadToggle, setFileUploadToggle] = useState(false);
 
-  // file upload toggle
-  const handleFileUploadToggle = () => {
-    setFileUploadToggle(!fileUploadToggle);
-  };
-
-  console.log(fileUploadToggle);
   // navigation collapse function
   useEffect(() => {
     window.addEventListener("scroll", handleNavbarScroll);

@@ -1,19 +1,27 @@
 import React, { createContext, useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import Navbar from "../components/share/manu/Navbar";
+import UploaderTabs from "../components/tabs/UploaderTabs";
 import "./DashboardLayout.css";
 
 export const NAVBAR_CONTEXT = createContext();
 
 const DashboardLayout = () => {
-  // const [sidebar, setSidebar] = useState("");
+  const [fileUploadToggle, setFileUploadToggle] = useState(false);
+  const [sidebarToggle, setSidebarToggle] = useState(false);
+
+  // file upload toggle
+  const handleFileUploadToggle = () => {
+    setFileUploadToggle(!fileUploadToggle);
+  };
 
   // data toggle with navbar connection here
-  const [sidebarToggle, setSidebarToggle] = useState(false);
   const handleSidebar = () => {
     setSidebarToggle(!sidebarToggle);
   };
-  const navbarInfo = { handleSidebar };
+
+  // share navbar information
+  const navbarInfo = { handleSidebar, handleFileUploadToggle };
 
   // sidebar breaking point class add
   const [isSmallScreen, setIsSmallScreen] = useState(0);
@@ -27,6 +35,7 @@ const DashboardLayout = () => {
     };
   }, []);
 
+  // dashboard router
   const routeItems = (
     <>
       <li className="router-items">
@@ -78,7 +87,7 @@ const DashboardLayout = () => {
           </div>
         </div>
       </div>
-      {/* -----------------OFF CANVAS SIDEBAR ROUTE HANDLER--------------------- */}
+      {/* -----------------START OFF CANVAS SIDEBAR ROUTE HANDLER--------------------- */}
       <div
         className={`bg-neutral w-full lg:max-w-[20%] dashboard-sidebar block lg:hidden off-canvas-sidebar-router ${
           sidebarToggle ? "sidebar-add" : ""
@@ -103,6 +112,20 @@ const DashboardLayout = () => {
           </div>
         </div>
       </div>
+      {/* -----------------END OF OFF CANVAS SIDEBAR ROUTE HANDLER--------------------- */}
+
+      {/* -------------------------Start hidden uploader file--------------------- */}
+      <div
+        className={`hidden-uploader-sidebar ${
+          fileUploadToggle ? "block-uploader-sidebar" : ""
+        }`}
+      >
+        <NAVBAR_CONTEXT.Provider value={navbarInfo}>
+          <UploaderTabs />
+        </NAVBAR_CONTEXT.Provider>
+      </div>
+      {/* -------------------------End of  hidden uploader file--------------------- */}
+
       {/* right bar */}
       <div className=" w-full lg:max-w-[80%]">
         <div className="">
@@ -112,8 +135,8 @@ const DashboardLayout = () => {
             </NAVBAR_CONTEXT.Provider>
           </div>
         </div>
-        <div className="placeholder-outlet h-screen">
-          <div className="freepik-container ">
+        <div className="placeholder-outlet h-screen bg-[#ECEBE5]">
+          <div className="freepik-container  ">
             <Outlet />
           </div>
         </div>
