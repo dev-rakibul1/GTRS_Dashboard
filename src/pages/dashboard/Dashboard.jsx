@@ -1,9 +1,21 @@
 import React from "react";
 
+import DashboardContentSidebar from "./DashboardContentSidebar";
+import DashboardLeftSidebar from "./DashboardLeftSidebar";
+
 const Dashboard = () => {
   return (
-    <div className="flex justify-center items-center h-screen text-primary text-2xl bg-[#ecebe5]">
-      <h1>Welcome from our dashboard</h1>
+    <div>
+      <div className="lg:flex  max-w-full gap-7">
+        <div className="w-full lg:max-w-[70%]">
+          <DashboardContentSidebar />
+        </div>
+
+        {/* left sidebar */}
+        <div className="w-full lg:max-w-[30%]">
+          <DashboardLeftSidebar />
+        </div>
+      </div>
     </div>
   );
 };

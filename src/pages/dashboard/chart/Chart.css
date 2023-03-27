@@ -1,0 +1,11 @@
+.uploader-tabs .active {
+  border-bottom: 1px solid #0161cd;
+  padding-bottom: 15px;
+  color: #333;
+}
+
+.tabs .active {
+  color: #333;
+  border-bottom: 2px solid #1d262d;
+  padding-bottom: -10px;
+}

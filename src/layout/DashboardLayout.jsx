@@ -1,5 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
+import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 import { Link, Outlet } from "react-router-dom";
+import Footer from "../components/share/footer/Footer";
 import Navbar from "../components/share/manu/Navbar";
 import UploaderTabs from "../components/tabs/UploaderTabs";
 import "./DashboardLayout.css";
@@ -9,6 +11,12 @@ export const NAVBAR_CONTEXT = createContext();
 const DashboardLayout = () => {
   const [fileUploadToggle, setFileUploadToggle] = useState(false);
   const [sidebarToggle, setSidebarToggle] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  // sidebar dropdown toggle
+  function handleToggle() {
+    setIsOpen(!isOpen);
+  }
 
   // file upload toggle
   const handleFileUploadToggle = () => {
@@ -43,14 +51,39 @@ const DashboardLayout = () => {
           Dashboard
         </Link>
       </li>
-      <li className="router-items">
-        <Link to="/General" className="router-link">
-          General
-        </Link>
-      </li>
-      <li className="router-items">
-        <Link to="/" className="router-link">
-          Status
+
+      <li className="router-items dropdown">
+        <Link
+          to="/"
+          className="router-link  dropdown-toggle "
+          onClick={handleToggle}
+        >
+          <div className="flex items-center justify-between">
+            <span>Status</span>
+            {isOpen ? (
+              <MdArrowDropUp className="text-2xl" />
+            ) : (
+              <MdArrowDropDown className="text-2xl " />
+            )}
+          </div>
+          <div
+            className={`dropdown-menu flex items-start justify-start flex-col w-full   ${
+              isOpen ? "open" : ""
+            }`}
+          >
+            <Link
+              to="/general"
+              className=" hover:bg-gray-500 p-2 mt-2 block w-full rounded-md"
+            >
+              General
+            </Link>
+            <Link
+              to="/ranking"
+              className=" hover:bg-gray-500 p-2 mt-2 block w-full rounded-md"
+            >
+              Contributors ranking
+            </Link>
+          </div>
         </Link>
       </li>
       <li className="router-items">
@@ -62,86 +95,89 @@ const DashboardLayout = () => {
   );
 
   return (
-    <div className="lg:flex dashboard-layout-wrapper">
-      {/* side bar/left bar */}
-      {/* {isSmallScreen ? <h1>Hello world!</h1> : <h1>Sorry</h1>} */}
-      <div
-        className={`bg-neutral w-full lg:max-w-[20%] dashboard-sidebar  hidden lg:block sticky top-0
+    <>
+      <div className="lg:flex dashboard-layout-wrapper">
+        {/* side bar/left bar */}
+        {/* {isSmallScreen ? <h1>Hello world!</h1> : <h1>Sorry</h1>} */}
+        <div
+          className={`bg-neutral w-full lg:max-w-[20%] dashboard-sidebar  hidden lg:block sticky top-0
          `}
-      >
-        <div className="freepik-container">
-          <div className="nav-area">
-            <div className="max-w-[180px] py-7">
-              <Link to="/">
-                <img
-                  src="https://static-contributor-fp.cdnpk.net/assets/e418cfe53773617e237f15fb02f027ea.svg"
-                  alt="logo"
-                  className="max-w-full"
-                />
-              </Link>
+        >
+          <div className="freepik-container">
+            <div className="nav-area">
+              <div className="max-w-[180px] py-7">
+                <Link to="/">
+                  <img
+                    src="https://static-contributor-fp.cdnpk.net/assets/e418cfe53773617e237f15fb02f027ea.svg"
+                    alt="logo"
+                    className="max-w-full"
+                  />
+                </Link>
+              </div>
+
+              {/* route */}
+
+              <ul className="route-wrap">{routeItems}</ul>
             </div>
-
-            {/* route */}
-
-            <ul className="route-wrap">{routeItems}</ul>
           </div>
         </div>
-      </div>
-      {/* -----------------START OFF CANVAS SIDEBAR ROUTE HANDLER--------------------- */}
-      <div
-        className={`bg-neutral w-full lg:max-w-[20%] dashboard-sidebar block lg:hidden off-canvas-sidebar-router ${
-          sidebarToggle ? "sidebar-add" : ""
-        }  ${isSmallScreen ? "remove-sidebar-position" : ""} 
+        {/* -----------------START OFF CANVAS SIDEBAR ROUTE HANDLER--------------------- */}
+        <div
+          className={`bg-neutral w-full lg:max-w-[20%] dashboard-sidebar block lg:hidden off-canvas-sidebar-router ${
+            sidebarToggle ? "sidebar-add" : ""
+          }  ${isSmallScreen ? "remove-sidebar-position" : ""} 
          `}
-      >
-        <div className="freepik-container">
-          <div className="nav-area">
-            <div className="max-w-[180px] py-7">
-              <Link to="/">
-                <img
-                  src="https://static-contributor-fp.cdnpk.net/assets/e418cfe53773617e237f15fb02f027ea.svg"
-                  alt="logo"
-                  className="max-w-full"
-                />
-              </Link>
+        >
+          <div className="freepik-container">
+            <div className="nav-area">
+              <div className="max-w-[180px] py-7">
+                <Link to="/">
+                  <img
+                    src="https://static-contributor-fp.cdnpk.net/assets/e418cfe53773617e237f15fb02f027ea.svg"
+                    alt="logo"
+                    className="max-w-full"
+                  />
+                </Link>
+              </div>
+
+              {/* route */}
+
+              <ul className="route-wrap">{routeItems}</ul>
             </div>
-
-            {/* route */}
-
-            <ul className="route-wrap">{routeItems}</ul>
           </div>
         </div>
-      </div>
-      {/* -----------------END OF OFF CANVAS SIDEBAR ROUTE HANDLER--------------------- */}
+        {/* -----------------END OF OFF CANVAS SIDEBAR ROUTE HANDLER--------------------- */}
 
-      {/* -------------------------Start hidden uploader file--------------------- */}
-      <div
-        className={`hidden-uploader-sidebar ${
-          fileUploadToggle ? "block-uploader-sidebar" : ""
-        }`}
-      >
-        <NAVBAR_CONTEXT.Provider value={navbarInfo}>
-          <UploaderTabs />
-        </NAVBAR_CONTEXT.Provider>
-      </div>
-      {/* -------------------------End of  hidden uploader file--------------------- */}
+        {/* -------------------------Start hidden uploader file--------------------- */}
+        <div
+          className={`hidden-uploader-sidebar ${
+            fileUploadToggle ? "block-uploader-sidebar" : ""
+          }`}
+        >
+          <NAVBAR_CONTEXT.Provider value={navbarInfo}>
+            <UploaderTabs />
+          </NAVBAR_CONTEXT.Provider>
+        </div>
+        {/* -------------------------End of  hidden uploader file--------------------- */}
 
-      {/* right bar */}
-      <div className=" w-full lg:max-w-[80%]">
-        <div className="">
+        {/* right bar */}
+        <div className=" w-full lg:max-w-[80%]">
           <div className="">
-            <NAVBAR_CONTEXT.Provider value={navbarInfo}>
-              <Navbar />
-            </NAVBAR_CONTEXT.Provider>
+            <div className="">
+              <NAVBAR_CONTEXT.Provider value={navbarInfo}>
+                <Navbar />
+              </NAVBAR_CONTEXT.Provider>
+            </div>
           </div>
-        </div>
-        <div className="placeholder-outlet h-screen bg-[#ECEBE5]">
-          <div className="freepik-container  ">
-            <Outlet />
+          <div className="placeholder-outlet h-screen bg-[#ECEBE5]">
+            <div className="freepik-container  ">
+              <Outlet />
+              <Footer />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

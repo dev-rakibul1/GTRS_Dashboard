@@ -1,0 +1,115 @@
+.next-festivities-box:hover .next-article-search {
+  color: #000;
+}
+
+.next-festivities-box .hiOutlineArrow {
+  color: #000;
+  font-size: 0;
+  transition: all 0.5s;
+}
+
+.next-festivities-box:hover .hiOutlineArrow {
+  color: #000;
+  font-size: 15px;
+}
+/* latest tends style */
+/* latest-trends-single-items */
+.latest-trends-single-items .latest-trends-single-items-image img {
+  transition: all 0.2s;
+}
+.latest-trends-single-items:hover .latest-trends-single-items-image img {
+  transform: scale(1.03);
+}
+
+/* slider far and near style */
+/* 
+.slide-far .slide-left-content {
+  margin-right: -900px;
+  top: 0;
+  transition: all.5s;
+}
+
+.slide-near .slide-right-content {
+  margin-left: 0px;
+  top: 0;
+  transition: all.5s;
+} */
+
+.slide-far,
+.slide-near {
+  transition: 0.5s;
+}
+.slide-near {
+  margin: 0;
+}
+.slide-far {
+  margin-left: -730px;
+}
+
+/* published file */
+tr:nth-child(even) {
+  background-color: #f2f5f7;
+}
+
+.MainImg {
+  transition-duration: 5s !important;
+}
+.tullTip {
+}
+
+.MainImg:hover .tullTip {
+  display: block !important;
+}
+
+/* / icone design / */
+.ToolIcone {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 10px 7px 0;
+  border-color: transparent #ffffffff transparent transparent;
+}
+.userTool {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 8px 5px 0;
+  border-color: transparent #ffffffff transparent transparent;
+  z-index: 100;
+}
+
+.UserAvator:hover .userName {
+  display: flex !important;
+}
+/* .userName {
+} */
+
+/* dashboard slider */
+.dashboard-slider {
+  max-width: 100%;
+  height: 40vh;
+  max-height: 100%;
+}
+
+.dashboard-slider img {
+  max-width: 100%;
+  width: 100%;
+}
+
+.dashboard-slide-01 {
+  background: url("https://static-contributor-fp.cdnpk.net/assets/0428d11f7c222c50218c0e66112428f9.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 50px 0;
+  border-radius: 10px;
+}
+
+.dashboard-slide-02 {
+  background: url("https://i.ibb.co/4RsPNk1/ezgif-com-webp-to-jpg-1.jpg");
+  background-position: center left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 50px 0;
+  border-radius: 10px;
+}

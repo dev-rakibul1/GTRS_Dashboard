@@ -65,3 +65,19 @@
   background-color: #3f464c;
   color: #fff;
 }
+
+/* dropdown toggle style */
+.dropdown-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.dropdown-menu.open {
+  max-height: 200px;
+}
