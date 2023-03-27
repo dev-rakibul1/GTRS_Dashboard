@@ -91,6 +91,12 @@ const DashboardLayout = () => {
           Contact
         </Link>
       </li>
+
+      <li className="router-items">
+        <Link to="/referral" className="router-link">
+          Referral Program
+        </Link>
+      </li>
     </>
   );
 
@@ -119,11 +125,18 @@ const DashboardLayout = () => {
 
               <ul className="route-wrap">{routeItems}</ul>
             </div>
+
+            {/* login */}
+            <div className="login absolute bottom-0 left-0 p-4">
+              <Link to="/authenticate-layout/login">
+                <button>Login</button>
+              </Link>
+            </div>
           </div>
         </div>
         {/* -----------------START OFF CANVAS SIDEBAR ROUTE HANDLER--------------------- */}
         <div
-          className={`bg-neutral w-full lg:max-w-[20%] dashboard-sidebar block lg:hidden off-canvas-sidebar-router ${
+          className={`bg-neutral w-full lg:max-w-[20%] dashboard-sidebar block lg:hidden off-canvas-sidebar-router z-10 ${
             sidebarToggle ? "sidebar-add" : ""
           }  ${isSmallScreen ? "remove-sidebar-position" : ""} 
          `}

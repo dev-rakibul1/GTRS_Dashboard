@@ -183,7 +183,7 @@ const ChartOne = () => {
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="100%" height={400} style={{ zIndex: "-1" }}>
         <ComposedChart data={data}>
           {/* <XAxis dataKey="name" /> */}
           <XAxis

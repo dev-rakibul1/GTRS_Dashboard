@@ -18,7 +18,7 @@ function Chart() {
   };
 
   return (
-    <div className="max-w-full mx-auto">
+    <div className="max-w-full mx-auto" style={{ zIndex: -1 }}>
       <div className="uploader-tabs">
         <div className="lg:flex items-center justify-between my-12">
           <div className="border-b border-gray-300 inline-block my-7">
