@@ -102,11 +102,11 @@ const DashboardLayout = () => {
 
   return (
     <>
-      <div className="lg:flex dashboard-layout-wrapper">
+      <div className="lg:flex dashboard-layout-wrapper overflow-y-scroll h-screen">
         {/* side bar/left bar */}
         {/* {isSmallScreen ? <h1>Hello world!</h1> : <h1>Sorry</h1>} */}
         <div
-          className={`bg-neutral w-full lg:max-w-[20%] dashboard-sidebar  hidden lg:block sticky top-0
+          className={`bg-neutral w-full lg:max-w-[20%] dashboard-sidebar  hidden lg:block sticky top-0 overflow-y-scroll max-h-screen h-full
          `}
         >
           <div className="freepik-container">
@@ -129,14 +129,14 @@ const DashboardLayout = () => {
             {/* login */}
             <div className="login absolute bottom-0 left-0 p-4">
               <Link to="/authenticate-layout/login">
-                <button>Login</button>
+                <button className="text-gray-400">Login</button>
               </Link>
             </div>
           </div>
         </div>
         {/* -----------------START OFF CANVAS SIDEBAR ROUTE HANDLER--------------------- */}
         <div
-          className={`bg-neutral w-full lg:max-w-[20%] dashboard-sidebar block lg:hidden off-canvas-sidebar-router z-10 ${
+          className={`bg-neutral w-full lg:max-w-[20%] dashboard-sidebar block lg:hidden off-canvas-sidebar-router z-10  ${
             sidebarToggle ? "sidebar-add" : ""
           }  ${isSmallScreen ? "remove-sidebar-position" : ""} 
          `}
@@ -163,7 +163,7 @@ const DashboardLayout = () => {
 
         {/* -------------------------Start hidden uploader file--------------------- */}
         <div
-          className={`hidden-uploader-sidebar ${
+          className={`hidden-uploader-sidebar z-20 ${
             fileUploadToggle ? "block-uploader-sidebar" : ""
           }`}
         >
@@ -175,18 +175,18 @@ const DashboardLayout = () => {
 
         {/* right bar */}
         <div className=" w-full lg:max-w-[80%]">
-          <div className="">
+          <div className="relative">
             <div className="">
               <NAVBAR_CONTEXT.Provider value={navbarInfo}>
                 <Navbar />
               </NAVBAR_CONTEXT.Provider>
             </div>
           </div>
-          <div className="placeholder-outlet h-screen bg-[#ECEBE5]">
+          <div className="placeholder-outlet  bg-[#ECEBE5] overflow-y-scroll h-screen">
             <div className="freepik-container  ">
               <Outlet />
-              <Footer />
             </div>
+            <Footer />
           </div>
         </div>
       </div>
@@ -195,85 +195,3 @@ const DashboardLayout = () => {
 };
 
 export default DashboardLayout;
-
-// import React, { createContext, useEffect, useState } from "react";
-// import { Link, Outlet } from "react-router-dom";
-// import Navbar from "../components/share/manu/Navbar";
-// import "./DashboardLayout.css";
-
-// export const NAVBAR_CONTEXT = createContext();
-
-// const DashboardLayout = () => {
-//   // const [sidebar, setSidebar] = useState("");
-
-//   // data toggle with navbar connection here
-//   const [sidebarToggle, setSidebarToggle] = useState(false);
-//   const handleSidebar = () => {
-//     setSidebarToggle(!sidebarToggle);
-//   };
-//   const navbarInfo = { handleSidebar };
-
-//   // sidebar breaking point class add
-//   const [isSmallScreen, setIsSmallScreen] = useState(0);
-//   useEffect(() => {
-//     function handleResize() {
-//       setIsSmallScreen(window.innerWidth > 1000);
-//     }
-//     window.addEventListener("resize", handleResize);
-//     return () => {
-//       window.removeEventListener("resize", handleResize);
-//     };
-//   }, []);
-
-//   useEffect(() => {
-//     const dashboardSidebar = document.querySelector(".dashboard-sidebar");
-//     if (isSmallScreen) {
-//       dashboardSidebar.classList.remove("add-sidebar");
-//     }
-//     console.log(dashboardSidebar);
-//   }, [isSmallScreen]);
-
-//   return (
-//     <div className="lg:flex">
-//       {/* side bar/left bar */}
-
-//       {/* {isSmallScreen ? <h1>Hello world!</h1> : <h1>Sorry</h1>} */}
-
-//       <div
-//         className={`bg-neutral w-full lg:max-w-[30%] dashboard-sidebar  ${
-//           sidebarToggle ? "block add-sidebar" : "hidden lg:block"
-//         } ${isSmallScreen ? "remove-sidebar-position" : ""} `}
-//       >
-//         <div className="freepik-container">
-//           <div className="max-w-[180px] py-7">
-//             <Link to="/">
-//               <img
-//                 src="https://static-contributor-fp.cdnpk.net/assets/e418cfe53773617e237f15fb02f027ea.svg"
-//                 alt="logo"
-//                 className="max-w-full"
-//               />
-//             </Link>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* right bar */}
-//       <div className="bg-gray-600 w-full lg:max-w-[70%]">
-//         <div className="">
-//           <div className="freepik-container">
-//             <NAVBAR_CONTEXT.Provider value={navbarInfo}>
-//               <Navbar />
-//             </NAVBAR_CONTEXT.Provider>
-//           </div>
-//         </div>
-//         <div className="">
-//           <div className="freepik-container">
-//             <Outlet />
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DashboardLayout;

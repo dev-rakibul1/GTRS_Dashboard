@@ -29,61 +29,63 @@ const Navbar = () => {
   };
 
   return (
-    <div
-      className={`text-primary bg-white sticky top-0 left-0 border-b border-gray-300`}
-    >
-      <div className="navbar-wrapper flex items-center justify-between  p-4">
-        <div className="flex items-center justify-between">
-          {/* Navbar toggler */}
-          <div className="block lg:hidden mr-1 " onClick={handleSidebar}>
-            <div className="navbar-toggler rounded-[4px]">
-              <span></span>
-              <span></span>
-              <span></span>
+    <div className="relative">
+      <div
+        className={`text-primary bg-white border-b border-gray-300 sticky top-0 right-0 z-10 w-full max-w-full`}
+      >
+        <div className="navbar-wrapper flex items-center justify-between  p-4">
+          <div className="flex items-center justify-between">
+            {/* Navbar toggler */}
+            <div className="block lg:hidden mr-1 " onClick={handleSidebar}>
+              <div className="navbar-toggler rounded-[4px]">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            {/* file upload */}
+
+            <div
+              className="flex items-center justify-start bg-primary text-white px-4 py-2 cursor-pointer rounded-[4px] text-sm "
+              onClick={handleFileUploadToggle}
+            >
+              <span>
+                <FiUpload />
+              </span>
+              <span className="ml-4 hidden lg:block"> Upload files</span>
+            </div>
+
+            {/* FTP */}
+            <div className="ftp   hidden sm:block">
+              <button className=" ml-2 border-2 border-primary text-primary px-4 py-[7px] cursor-pointer rounded-[4px] text-sm">
+                Synchronize FTP
+              </button>
             </div>
           </div>
 
-          {/* file upload */}
-
-          <div
-            className="flex items-center justify-start bg-primary text-white px-4 py-2 cursor-pointer rounded-[4px] text-sm "
-            onClick={handleFileUploadToggle}
-          >
-            <span>
-              <FiUpload />
-            </span>
-            <span className="ml-4 hidden lg:block"> Upload files</span>
-          </div>
-
-          {/* FTP */}
-          <div className="ftp   hidden sm:block">
-            <button className=" ml-2 border-2 border-primary text-primary px-4 py-[7px] cursor-pointer rounded-[4px] text-sm">
-              Synchronize FTP
-            </button>
-          </div>
-        </div>
-
-        {/* user and notification */}
-        <div className="user-notification  flex items-center">
-          {/* notification */}
-          <div className="relative cursor-pointer">
-            <span className="text-2xl">
-              <MdNotificationsNone />
-              <span className="w-5 h-5 absolute top-[-15px] right-[-8px] bg-warning text-sm p-[3px] rounded-sm flex items-center justify-center">
-                1
+          {/* user and notification */}
+          <div className="user-notification  flex items-center">
+            {/* notification */}
+            <div className="relative cursor-pointer">
+              <span className="text-2xl">
+                <MdNotificationsNone />
+                <span className="w-5 h-5 absolute top-[-15px] right-[-8px] bg-warning text-sm p-[3px] rounded-sm flex items-center justify-center">
+                  1
+                </span>
               </span>
-            </span>
-          </div>
+            </div>
 
-          {/* user */}
-          <div className="user w-8 h-8 rounded-full border border-primary flex justify-center items-center ml-4 cursor-pointer">
-            <span className=" text-xl">
-              <FaRegUser />
-            </span>
-          </div>
-          <div className="user-dashboard ml-4 hidden sm:block">
-            <h6 className="leading-3 text-sm">Dashboard</h6>
-            <small className="leading-3 text-xs">Label 3</small>
+            {/* user */}
+            <div className="user w-8 h-8 rounded-full border border-primary flex justify-center items-center ml-4 cursor-pointer">
+              <span className=" text-xl">
+                <FaRegUser />
+              </span>
+            </div>
+            <div className="user-dashboard ml-4 hidden sm:block">
+              <h6 className="leading-3 text-sm">Dashboard</h6>
+              <small className="leading-3 text-xs">Label 3</small>
+            </div>
           </div>
         </div>
       </div>
