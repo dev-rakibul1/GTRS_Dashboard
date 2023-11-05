@@ -59,7 +59,7 @@ const Navbar = () => {
             {/* FTP */}
             <div className="ftp   hidden sm:block">
               <button className=" ml-2 border-2 border-primary text-primary px-4 py-[7px] cursor-pointer rounded-[4px] text-sm">
-                Synchronize FTP
+                Export Data
               </button>
             </div>
           </div>

@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { GrSearch } from "react-icons/gr";
-import { IoWarningOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import "./Dashboard.css";
-const url =
-  "https://gtr-multiple-form-backend-server-56n73umlm-dev-rakibul1.vercel.app/api/v1/form-data";
-// const url = "https://gtr-multiple-form-backend-server-nqd2s5zk3-dev-rakibul1.vercel.app/api/v1/form-data";
+import "./ContactUs.css";
 
-const DashboardContentSidebar = () => {
+const ContactUs = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
 
   const fetchData = (page, search) => {
+    const url =
+      "https://gtr-multiple-form-backend-server-md75ucjkc-dev-rakibul1.vercel.app/api/v1/contact-us/";
     // const pageUrl = `${url}?page=${page}`;
     const pageUrl = `${url}?page=${page}${
       search ? "&searchTerm=" + search : ""
@@ -41,6 +39,7 @@ const DashboardContentSidebar = () => {
   useEffect(() => {
     fetchData(currentPage);
   }, []);
+  console.log("Contact us data___", data);
 
   // Pagination calculation
   const totalUser = data?.meta?.total;
@@ -139,13 +138,12 @@ const DashboardContentSidebar = () => {
                   </div>
                 ) : (
                   <>
-                    <div className="p-3  border-gray-300 mt-3 w-full justify-between items-center font-bold dashboard-user-entry">
+                    <div className="p-3  border-gray-300 mt-3 w-full justify-between items-center font-bold dashboard-user-entry-contact ">
                       <div className="hidden md:block ">Sl</div>
                       <div className="">Name</div>
                       <div className="hidden md:block ">Email</div>
                       <div className="hidden sm:block">Phone</div>
                       <div className="">Country</div>
-                      <div className=" hidden md:block ">Ip Address</div>
                       <div className="">More</div>
                     </div>
                     {data?.data?.map((user, index) => (
@@ -154,44 +152,21 @@ const DashboardContentSidebar = () => {
 
                         <div
                           key={user?.id}
-                          className="p-3 border-b border-gray-300 border  mt-3 w-full items-center bg-white dashboard-user-entry"
+                          className="p-3 border-b border-gray-300 border  mt-3 w-full items-center bg-white dashboard-user-entry-contact"
                         >
-                          <div className=" text-gray-600 px-2 mr-4 hidden md:block flex-grow-0 w-5 ">
-                            {index + 1}
+                          <div className=" hidden md:block ">{index + 1}</div>
+                          <div className=" text-gray-900  ">
+                            {user?.firstName}
                           </div>
-                          <div className="w-full ">
-                            {user?.clientRegisteredName}
-                          </div>
-                          <div className=" hidden md:block ">
-                            {user?.emailAddress}
-                          </div>
-                          <div className="  hidden sm:block ">
-                            {user?.officePhone}
-                          </div>
-                          <div className="  flex-grow w-full  ">
+                          <div className="hidden md:block ">{user?.email}</div>
+                          <div className=" hidden sm:block">{user?.phone}</div>
+                          <div className=" text-gray-600 capitalize">
                             {/* {format(user?.createdAt, "en_US")} */}
-                            <div className="flex items-center justify-start ">
-                              {user?.judicialCountry}
-
-                              {user?.judicialCountry ==
-                              user?.userTrackIp?.country ? null : (
-                                <IoWarningOutline className="ml-2 text-orange-700" />
-                              )}
-                            </div>
-
-                            {user?.judicialCountry !=
-                              user?.userTrackIp.country && (
-                              <div className="text-[10px]">
-                                User country: {user?.userTrackIp?.country}
-                              </div>
-                            )}
+                            {user?.country}
                           </div>
-                          <div className=" hidden md:block ">
-                            {user?.userTrackIp?.ip}
-                          </div>
-                          <div className=" text-gray-600 flex-grow w-full ">
-                            <Link to={`/review/${user?._id}`}>
-                              <button className=" py-1 px-4 rounded-sm  bg-blue-800 text-white">
+                          <div className=" text-gray-600">
+                            <Link to={`/single-user/${user?._id}`}>
+                              <button className=" py-1 px-4 rounded-sm mx-4 bg-blue-800 text-white">
                                 Details
                               </button>
                             </Link>
@@ -208,7 +183,7 @@ const DashboardContentSidebar = () => {
             {totalUser > eachPageUser && (
               <div className="pagination my-7 text-center flex items-center justify-center ">
                 <button
-                  className=" py-1 px-4 rounded-sm mx-4 bg-blue-800 text-white"
+                  className=" py-1 px-4 rounded-sm bg-blue-800 text-white"
                   onClick={handlePrevClick}
                 >
                   Prev
@@ -247,4 +222,4 @@ const DashboardContentSidebar = () => {
   );
 };
 
-export default DashboardContentSidebar;
+export default ContactUs;

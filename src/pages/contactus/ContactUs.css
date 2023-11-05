@@ -1,0 +1,18 @@
+/* dashboard-user-entry */
+.dashboard-user-entry-contact {
+  display: grid;
+  grid-template-columns: 3% 19.4% 19.4% 19.4% 19.4% 19.4%;
+  gap: 10px;
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-user-entry-contact {
+    grid-template-columns: 25% 25% 25% 25%;
+  }
+}
+@media (max-width: 640px) {
+  .dashboard-user-entry-contact {
+    grid-template-columns: 33.33% 33.33% 33.33%;
+  }
+}

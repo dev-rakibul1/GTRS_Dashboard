@@ -87,14 +87,8 @@ const DashboardLayout = () => {
         </Link>
       </li>
       <li className="router-items">
-        <Link to="/" className="router-link">
+        <Link to="/contact-us" className="router-link">
           Contact
-        </Link>
-      </li>
-
-      <li className="router-items">
-        <Link to="/referral" className="router-link">
-          Referral Program
         </Link>
       </li>
     </>
@@ -114,7 +108,7 @@ const DashboardLayout = () => {
               <div className="max-w-[180px] py-7">
                 <Link to="/">
                   <img
-                    src="https://static-contributor-fp.cdnpk.net/assets/e418cfe53773617e237f15fb02f027ea.svg"
+                    src="/images/logo.png"
                     alt="logo"
                     className="max-w-full"
                   />
@@ -122,8 +116,7 @@ const DashboardLayout = () => {
               </div>
 
               {/* route */}
-
-              <ul className="route-wrap">{routeItems}</ul>
+              <ul className="route-wrap text-gray-400">{routeItems}</ul>
             </div>
 
             {/* login */}
@@ -146,7 +139,7 @@ const DashboardLayout = () => {
               <div className="max-w-[180px] py-7">
                 <Link to="/">
                   <img
-                    src="https://static-contributor-fp.cdnpk.net/assets/e418cfe53773617e237f15fb02f027ea.svg"
+                    src="/images/logo.png"
                     alt="logo"
                     className="max-w-full"
                   />
@@ -155,7 +148,7 @@ const DashboardLayout = () => {
 
               {/* route */}
 
-              <ul className="route-wrap">{routeItems}</ul>
+              <ul className="route-wrap text-gray-400">{routeItems}</ul>
             </div>
           </div>
         </div>
@@ -182,8 +175,8 @@ const DashboardLayout = () => {
               </NAVBAR_CONTEXT.Provider>
             </div>
           </div>
-          <div className="placeholder-outlet  bg-[#ECEBE5] overflow-y-scroll h-screen">
-            <div className="freepik-container  ">
+          <div className="placeholder-outlet  bg-[#ECEBE5] ">
+            <div className="">
               <Outlet />
             </div>
             <Footer />

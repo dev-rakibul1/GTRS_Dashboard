@@ -35,7 +35,7 @@ function UploaderTabs() {
             className={`tab ${activeTab === 1 ? "active" : ""}`}
             onClick={() => handleClick(1)}
           >
-            Synchronize FTP
+            Export Data
           </div>
         </div>
 

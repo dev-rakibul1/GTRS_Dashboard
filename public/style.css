@@ -62,3 +62,32 @@ select {
   background-color: none !important;
   background: none !important;
 }
+
+input[type="search"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(24deg, #4502fa, #ea01ec);
+  display: inline-block;
+  font-weight: 600;
+}
+
+.full-width-container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* toast-visible */
+.toast-visible {
+  top: 2% !important;
+  transition: 0.5s;
+  opacity: 1 !important;
+}
