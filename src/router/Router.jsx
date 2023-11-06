@@ -48,11 +48,11 @@ const router = createBrowserRouter([
         element: <EditPage />,
       },
       {
-        // http://localhost:7000/api/v1/contact-us/review/65476a883378a236aad30996
+        // https://gtr-multiple-form-backend-server-rfbv762mc-dev-rakibul1.vercel.app/api/v1/contact-us/review/65476a883378a236aad30996
         path: "/review-contact-us/:id",
         loader: ({ params }) =>
           fetch(
-            `http://localhost:7000/api/v1/contact-us/review-contact-us/${params.id}`
+            `https://gtr-multiple-form-backend-server-rfbv762mc-dev-rakibul1.vercel.app/api/v1/contact-us/review-contact-us/${params.id}`
           ),
         element: <EditContactPage />,
       },

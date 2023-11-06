@@ -1,12 +1,13 @@
+import exportFromJSON from "export-from-json";
 import React, { useState } from "react";
+import { RxDownload } from "react-icons/rx";
 import { SlArrowLeft, SlPencil, SlTrash } from "react-icons/sl";
 import { Link, useLoaderData } from "react-router-dom";
 import ContactUsDeletePopup from "../ContactUsDelete/ContactUsDeletePopup";
 
 const ContactUsBtn = () => {
-  const data = useLoaderData();
-  const storedEntry = data?.data;
-
+  const storedData = useLoaderData();
+  const storedEntry = storedData?.data;
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleOpenPopup = () => {
@@ -15,6 +16,17 @@ const ContactUsBtn = () => {
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
+  };
+
+  const handleExportUser = () => {
+    const data = [storedEntry];
+
+    // Set the filename and export type
+    const fileName = "exported_data";
+    const exportType = exportFromJSON.types.csv;
+
+    // Export the data
+    exportFromJSON({ data, fileName, exportType });
   };
 
   return (
@@ -29,6 +41,15 @@ const ContactUsBtn = () => {
           </Link>
         </div>
         <div className="">
+          {/* Download btn */}
+          <div className="tooltip" data-tip="Export user">
+            <button
+              className=" py-1 px-2 rounded-sm mx-1 text-gray-500"
+              onClick={handleExportUser}
+            >
+              <RxDownload />
+            </button>
+          </div>
           {/* update btn */}
           <div className="tooltip" data-tip="Edit">
             <Link to={`/review-contact-us/${storedEntry?._id}`}>

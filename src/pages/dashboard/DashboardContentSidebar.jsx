@@ -1,6 +1,8 @@
+import exportFromJSON from "export-from-json";
 import React, { useEffect, useState } from "react";
 import { GrSearch } from "react-icons/gr";
 import { IoWarningOutline } from "react-icons/io5";
+import { RxDownload } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import "./Dashboard.css";
 const url =
@@ -8,7 +10,7 @@ const url =
 // const url = "https://gtr-multiple-form-backend-server-nqd2s5zk3-dev-rakibul1.vercel.app/api/v1/form-data";
 
 const DashboardContentSidebar = () => {
-  const [data, setData] = useState([]);
+  const [contactUsData, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,7 +20,7 @@ const DashboardContentSidebar = () => {
     const pageUrl = `${url}?page=${page}${
       search ? "&searchTerm=" + search : ""
     }`;
-    console.log(pageUrl);
+    console.log(contactUsData.data);
 
     fetch(pageUrl)
       .then((response) => {
@@ -43,8 +45,8 @@ const DashboardContentSidebar = () => {
   }, []);
 
   // Pagination calculation
-  const totalUser = data?.meta?.total;
-  const eachPageUser = data?.meta?.limit;
+  const totalUser = contactUsData?.meta?.total;
+  const eachPageUser = contactUsData?.meta?.limit;
   const totalNumberOfPages = totalUser / eachPageUser;
   const totalCurrentPageCount = currentPage;
   const totalCurrentPage = eachPageUser * totalCurrentPageCount;
@@ -78,6 +80,17 @@ const DashboardContentSidebar = () => {
     fetchData(1, searchQuery);
   };
 
+  const handleExportMultipleFormUser = () => {
+    const data = contactUsData?.data;
+
+    // Set the filename and export type
+    const fileName = "exported_data";
+    const exportType = exportFromJSON.types.csv;
+
+    // Export the data
+    exportFromJSON({ data, fileName, exportType });
+  };
+
   return (
     <>
       <div className="full-width-container ">
@@ -91,7 +104,10 @@ const DashboardContentSidebar = () => {
               <>
                 <div className="sm:flex items-center justify-between py-4">
                   <h4 className="py-2 font-semibold text-lg text-pink-700">
-                    Total entry : {data?.meta?.total ? data?.meta?.total : 0}
+                    Total entry :{" "}
+                    {contactUsData?.meta?.total
+                      ? contactUsData?.meta?.total
+                      : 0}
                   </h4>
 
                   {/* Search */}
@@ -129,9 +145,20 @@ const DashboardContentSidebar = () => {
                         <option value="desc">Desc</option>
                       </select>
                     </form>
+
+                    {/* export data */}
+                    <div className="ftp ">
+                      <button
+                        className=" ml-2 border-2 border-primary text-primary px-4 py-[7px] cursor-pointer rounded-[4px] text-sm w-full flex items-center justify-between"
+                        onClick={handleExportMultipleFormUser}
+                      >
+                        Export
+                        <RxDownload />
+                      </button>
+                    </div>
                   </div>
                 </div>
-                {!data?.data?.length ? (
+                {!contactUsData?.data?.length ? (
                   <div className="flex items-center justify-center h-56 mt-16">
                     <h2 className="text-gray-400 text-4xl">
                       User entry not available.
@@ -148,7 +175,7 @@ const DashboardContentSidebar = () => {
                       <div className=" hidden md:block ">Ip Address</div>
                       <div className="">More</div>
                     </div>
-                    {data?.data?.map((user, index) => (
+                    {contactUsData?.data?.map((user, index) => (
                       <>
                         {/* Table Header */}
 
