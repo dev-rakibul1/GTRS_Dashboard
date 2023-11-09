@@ -5,9 +5,8 @@ import { IoWarningOutline } from "react-icons/io5";
 import { RxDownload } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import "./Dashboard.css";
-const url =
-  "https://gtr-multiple-form-backend-server-56n73umlm-dev-rakibul1.vercel.app/api/v1/form-data";
-// const url = "https://gtr-multiple-form-backend-server-nqd2s5zk3-dev-rakibul1.vercel.app/api/v1/form-data";
+const url = "https://gtrs.vercel.app/api/v1/form-data";
+// const url = "https://gtrs.vercel.app/api/v1/form-data";
 
 const DashboardContentSidebar = () => {
   const [contactUsData, setData] = useState([]);
@@ -51,10 +50,14 @@ const DashboardContentSidebar = () => {
   const totalCurrentPageCount = currentPage;
   const totalCurrentPage = eachPageUser * totalCurrentPageCount;
 
+  const mathCeil = Math.ceil(totalNumberOfPages);
+
   let countPage = [];
-  for (let page = 1; page < totalNumberOfPages; page++) {
+  for (let page = 0; page < mathCeil; page++) {
     countPage.push(page);
   }
+
+  console.log(countPage);
 
   const handleNextClick = () => {
     const nextPage = currentPage + 1;
@@ -197,13 +200,24 @@ const DashboardContentSidebar = () => {
                           </div>
                           <div className="  flex-grow w-full  ">
                             {/* {format(user?.createdAt, "en_US")} */}
-                            <div className="flex items-center justify-start ">
-                              {user?.judicialCountry}
+                            <div className="flex items-center justify-start capitalize">
+                              {user?.judicialCountry &&
+                                user.judicialCountry[0].slice(0, -2)}
 
-                              {user?.judicialCountry ==
-                              user?.userTrackIp?.country ? null : (
-                                <IoWarningOutline className="ml-2 text-orange-700" />
-                              )}
+                              {
+                                (console.log(
+                                  user?.judicialCountry[0]
+                                    .slice(-2)
+                                    .toUpperCase(),
+                                  user?.userTrackIp?.country
+                                ),
+                                user?.judicialCountry[0]
+                                  .slice(-2)
+                                  .toUpperCase() ==
+                                user?.userTrackIp?.country ? null : (
+                                  <IoWarningOutline className="ml-2 text-orange-700" />
+                                ))
+                              }
                             </div>
 
                             {user?.judicialCountry !=
@@ -232,7 +246,7 @@ const DashboardContentSidebar = () => {
             )}
 
             {/* Pagination Controls */}
-            {totalUser > eachPageUser && (
+            {totalUser >= eachPageUser && (
               <div className="pagination my-7 text-center flex items-center justify-center ">
                 <button
                   className=" py-1 px-4 rounded-sm mx-4 bg-blue-800 text-white"
@@ -250,18 +264,18 @@ const DashboardContentSidebar = () => {
                     }`}
                     key={i + 1}
                   >
-                    {page}
+                    {page + 1}
                   </span>
                 ))}
 
                 <button
                   className={` py-1 px-4 rounded-sm mx-4 text-white ${
-                    totalCurrentPage > totalUser
+                    totalCurrentPage >= totalUser
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-blue-800 "
                   }`}
                   onClick={handleNextClick}
-                  disabled={totalCurrentPage > totalUser}
+                  disabled={totalCurrentPage >= totalUser}
                 >
                   Next
                 </button>

@@ -5,7 +5,7 @@ import router from "./router/Router";
 const App = () => {
   return (
     <>
-      <RouterProvider router={router}></RouterProvider>;
+      <RouterProvider router={router}></RouterProvider>
     </>
   );
 };

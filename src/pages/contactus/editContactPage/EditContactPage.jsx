@@ -16,7 +16,7 @@ const EditContactPage = () => {
 
     try {
       const response = await axios.patch(
-        `https://gtr-multiple-form-backend-server-rfbv762mc-dev-rakibul1.vercel.app/api/v1/contact-us/review-contact-us/update-entry/${storedEntry._id}`,
+        `https://gtrs.vercel.app/api/v1/contact-us/review-contact-us/update-entry/${storedEntry._id}`,
         newEntry
       );
       console.log(response.data);

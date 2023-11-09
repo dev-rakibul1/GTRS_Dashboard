@@ -12,8 +12,7 @@ const ContactUs = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const fetchData = (page, search) => {
-    const url =
-      "https://gtr-multiple-form-backend-server-md75ucjkc-dev-rakibul1.vercel.app/api/v1/contact-us/";
+    const url = "https://gtrs.vercel.app/api/v1/contact-us/";
     // const pageUrl = `${url}?page=${page}`;
     const pageUrl = `${url}?page=${page}${
       search ? "&searchTerm=" + search : ""

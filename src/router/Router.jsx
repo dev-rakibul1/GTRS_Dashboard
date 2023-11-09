@@ -13,8 +13,7 @@ import Login from "../pages/lgoin/Login";
 import Ranking from "../pages/ranking/Ranking";
 import Referral from "../pages/referral/Referral";
 import Register from "../pages/register/Register";
-const url =
-  "https://gtr-multiple-form-backend-server-5m9s78awk-dev-rakibul1.vercel.app/api/v1/form-data/";
+const url = "https://gtrs.vercel.app/api/v1/form-data/";
 
 const router = createBrowserRouter([
   {
@@ -35,24 +34,21 @@ const router = createBrowserRouter([
         path: "/single-user/:id",
         loader: ({ params }) =>
           fetch(
-            `https://gtr-multiple-form-backend-server-md75ucjkc-dev-rakibul1.vercel.app/api/v1/contact-us/single-user/${params.id}`
+            `https://gtrs.vercel.app/api/v1/contact-us/review-contact-us/${params.id}`
           ),
         element: <SingleUser />,
       },
       {
         path: "/review/update-entry/:id",
         loader: ({ params }) =>
-          fetch(
-            `https://gtr-multiple-form-backend-server-nqd2s5zk3-dev-rakibul1.vercel.app/api/v1/form-data/review/${params.id}`
-          ),
+          fetch(`https://gtrs.vercel.app/api/v1/form-data/review/${params.id}`),
         element: <EditPage />,
       },
       {
-        // https://gtr-multiple-form-backend-server-rfbv762mc-dev-rakibul1.vercel.app/api/v1/contact-us/review/65476a883378a236aad30996
         path: "/review-contact-us/:id",
         loader: ({ params }) =>
           fetch(
-            `https://gtr-multiple-form-backend-server-rfbv762mc-dev-rakibul1.vercel.app/api/v1/contact-us/review-contact-us/${params.id}`
+            `https://gtrs.vercel.app/api/v1/contact-us/review-contact-us/${params.id}`
           ),
         element: <EditContactPage />,
       },

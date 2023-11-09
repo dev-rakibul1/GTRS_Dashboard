@@ -48,7 +48,13 @@ const DashboardLayout = () => {
     <>
       <li className="router-items">
         <Link to="/" className="router-link">
-          Dashboard
+          KYC Request
+        </Link>
+      </li>
+
+      <li className="router-items">
+        <Link to="/contact-us" className="router-link">
+          Contact Request
         </Link>
       </li>
 
@@ -86,17 +92,12 @@ const DashboardLayout = () => {
           </div>
         </Link>
       </li>
-      <li className="router-items">
-        <Link to="/contact-us" className="router-link">
-          Contact
-        </Link>
-      </li>
     </>
   );
 
   return (
     <>
-      <div className="lg:flex dashboard-layout-wrapper overflow-y-scroll h-screen">
+      <div className="lg:flex dashboard-layout-wrapper overflow-y-scroll h-screen overflow-hidden">
         {/* side bar/left bar */}
         {/* {isSmallScreen ? <h1>Hello world!</h1> : <h1>Sorry</h1>} */}
         <div

@@ -28,11 +28,10 @@ const EditPage = () => {
 
   const handleInputUpdate = async (event) => {
     event.preventDefault();
-    
 
     try {
       const response = await axios.patch(
-        `https://gtr-multiple-form-backend-server-nqd2s5zk3-dev-rakibul1.vercel.app/api/v1/form-data/review/update-entry/${storedEntry._id}`,
+        `https://gtrs.vercel.app/api/v1/form-data/review/update-entry/${storedEntry._id}`,
         newEntry
       );
       if (response.data.success) {
