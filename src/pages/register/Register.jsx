@@ -1,79 +1,177 @@
-import React from "react";
-import { BsFacebook } from "react-icons/bs";
-import { FcGoogle } from "react-icons/fc";
-import { HiOutlineMail } from "react-icons/hi";
+// Form.js
+import axios from "axios";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const SingUp = () => {
+  const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: "" });
+  };
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {};
+
+    // Validate first name
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "First name is required";
+      isValid = false;
+    }
+
+    // Validate last name
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Last name is required";
+      isValid = false;
+    }
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim() || !emailRegex.test(formData.email)) {
+      newErrors.email = "Valid email is required";
+      isValid = false;
+    }
+
+    // Validate phone number
+    const phoneRegex = /^\d{10}$/;
+    if (!formData.phone.trim() || !phoneRegex.test(formData.phone)) {
+      newErrors.phone = "Valid phone number is required";
+      isValid = false;
+    }
+
+    // Validate password
+    if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters long";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      try {
+        const response = await axios.post(
+          "http://localhost:7000/api/v1/user/create-user",
+          formData,
+          {
+            headers: {
+              authorization: `${localStorage.getItem("accessToken")}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const accessToken = response.data.data.accessToken;
+        console.log("Server response:", response.data);
+        localStorage.setItem("accessToken", accessToken);
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
+
+      // console.log("Form submitted:", formData);
+    } else {
+      console.log("Form has errors. Please fix them.");
+    }
+  };
+
   return (
-    <div className="h-screen">
-      <div className="md:flex block ">
-        <div className=" md:w-[75%] w-full h-screen bg-[url('https://static-gcp.freepikcompany.com/web-app/media/freepik-2-2000.webp')]"></div>
-        <div className="md:w-[480px] w-full h-screen ">
-          <div className="flex flex-col items-center justify-center h-full relative">
-            <Link to="/">
-              {" "}
-              <img
-                className="w-32 mb-24"
-                src="https://id.freepikcompany.com/v2/assets/freepik.7e5a42f2.svg"
-                alt=""
+    <>
+      <div className="max-w-md mx-auto flex justify-center items-center min-h-screen">
+        <form onSubmit={handleSubmit} className="space-y-4 px-3">
+          <h1 className="text-center font-semibold text-xl uppercase text-gray-600">
+            GTRS admin dashboard
+          </h1>
+          <div className="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-x-4">
+            <div className="">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={formData.firstName}
+                onChange={handleChange}
+                className={`p-2 border w-full border-gray-200 outline-0 rounded-sm focus:border-gray-300 transition-all duration-300  ${
+                  errors.firstName ? "border-red-500" : ""
+                }`}
               />
-            </Link>
-            <h2 className="text-2xl font-semibold mb-10">Create an account</h2>
-
-            <button className="w-80 leading-5 rounded-md	 font-semibold flex items-center gap-5 px-10 py-4 mb-2 border">
-              <FcGoogle className="text-2xl" />
-              <span> Continue With Google</span>
-            </button>
-            <button className="w-80 leading-5 rounded-md	 font-semibold flex items-center gap-5 px-10 py-4 mb-2 border">
-              <BsFacebook className="text-2xl text-[#3b5998]" />
-              <span> Continue With Facebook</span>
-            </button>
-            <Link
-              to="/authenticate-layout/email-login"
-              className="w-80 leading-5 rounded-md	 font-semibold flex items-center gap-5 px-10 py-4 mb-10 border"
-            >
-              <HiOutlineMail className="text-2xl " />
-              <span> Continue With Email</span>
-            </Link>
-
-            <div className="form-control sm:px-16 px-4 mb-7">
-              <label className="label cursor-pointer items-start gap-1">
-                <input type="checkbox" className="checkbox checkbox-primary" />
-                <span className="label-text">
-                  I do not wish to receive news and promotions from Freepik
-                  Company by email.
-                </span>
-              </label>
+              <small className="text-red-500">{errors.firstName}</small>
             </div>
-            <p className="sm:px-16 px-4 mb-7 text-center">
-              By continuing, you agree to Freepik Company’s Terms of Use and
-              Privacy Policy.
-            </p>
-
-            {/* {/ {2}/} */}
-
-            <p>
-              Don’t you have an account?{" "}
-              <Link
-                to="/authenticate-layout/login"
-                className="text-primary font-semibold"
-              >
-                Log In
-              </Link>
-            </p>
-            <div className="absolute w-full bottom-0 left-0 flex justify-center mb-7 items-center ">
-              <span className="">By</span>
-              <img
-                className="w-[182px]"
-                src="https://id.freepikcompany.com/v2/assets/freepik-company-gray.721fdfe0.svg"
-                alt=""
+            <div className="mt-3 md:mt-0">
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={formData.lastName}
+                onChange={handleChange}
+                className={`p-2 border w-full border-gray-200 outline-0 rounded-sm focus:border-gray-300 transition-all duration-300  ${
+                  errors.lastName ? "border-red-500" : ""
+                }`}
               />
+              <small className="text-red-500">{errors.lastName}</small>
             </div>
           </div>
-        </div>
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            className={`p-2 border w-full border-gray-200 outline-0 rounded-sm focus:border-gray-300 transition-all duration-300   ${
+              errors.email ? "border-red-500" : ""
+            }`}
+          />
+          <small className="text-red-500">{errors.email}</small>
+          <input
+            type="text"
+            name="phone"
+            placeholder="Phone Number"
+            value={formData.phone}
+            onChange={handleChange}
+            className={`p-2 border w-full border-gray-200 outline-0 rounded-sm focus:border-gray-300 transition-all duration-300   ${
+              errors.phone ? "border-red-500" : ""
+            }`}
+          />
+          <small className="text-red-500">{errors.phone}</small>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            className={`p-2 border w-full border-gray-200 outline-0 rounded-sm focus:border-gray-300 transition-all duration-300   ${
+              errors.password ? "border-red-500" : ""
+            }`}
+          />
+          <small className="text-red-500">{errors.password}</small>
+
+          <button
+            type="submit"
+            className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Sign Up
+          </button>
+
+          <p className="text-center mt-3">
+            I have an account?
+            <Link className="ml-2" to="/authenticate-layout/login">
+              Login
+            </Link>
+          </p>
+        </form>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -5,8 +5,8 @@ import { IoWarningOutline } from "react-icons/io5";
 import { RxDownload } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import "./Dashboard.css";
-const url = "https://gtrs.vercel.app/api/v1/form-data";
-// const url = "https://gtrs.vercel.app/api/v1/form-data";
+const url = "http://localhost:7000/api/v1/form-data";
+// const url = "http://localhost:7000/api/v1/form-data";
 
 const DashboardContentSidebar = () => {
   const [contactUsData, setData] = useState([]);
@@ -21,7 +21,11 @@ const DashboardContentSidebar = () => {
     }`;
     console.log(contactUsData.data);
 
-    fetch(pageUrl)
+    fetch(pageUrl, {
+      headers: {
+        authorization: `${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -204,20 +208,12 @@ const DashboardContentSidebar = () => {
                               {user?.judicialCountry &&
                                 user.judicialCountry[0].slice(0, -2)}
 
-                              {
-                                (console.log(
-                                  user?.judicialCountry[0]
-                                    .slice(-2)
-                                    .toUpperCase(),
-                                  user?.userTrackIp?.country
-                                ),
-                                user?.judicialCountry[0]
-                                  .slice(-2)
-                                  .toUpperCase() ==
-                                user?.userTrackIp?.country ? null : (
-                                  <IoWarningOutline className="ml-2 text-orange-700" />
-                                ))
-                              }
+                              {user?.judicialCountry[0]
+                                .slice(-2)
+                                .toUpperCase() ==
+                              user?.userTrackIp?.country ? null : (
+                                <IoWarningOutline className="ml-2 text-orange-700" />
+                              )}
                             </div>
 
                             {user?.judicialCountry !=

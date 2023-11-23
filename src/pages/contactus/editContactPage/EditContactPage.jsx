@@ -16,8 +16,14 @@ const EditContactPage = () => {
 
     try {
       const response = await axios.patch(
-        `https://gtrs.vercel.app/api/v1/contact-us/review-contact-us/update-entry/${storedEntry._id}`,
-        newEntry
+        `http://localhost:7000/api/v1/contact-us/review-contact-us/update-entry/${storedEntry._id}`,
+        newEntry,
+        {
+          headers: {
+            authorization: `${localStorage.getItem("accessToken")}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
       console.log(response.data);
       if (response.data.success) {

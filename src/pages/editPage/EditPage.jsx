@@ -31,8 +31,14 @@ const EditPage = () => {
 
     try {
       const response = await axios.patch(
-        `https://gtrs.vercel.app/api/v1/form-data/review/update-entry/${storedEntry._id}`,
-        newEntry
+        `http://localhost:7000/api/v1/form-data/review/update-entry/${storedEntry._id}`,
+        newEntry,
+        {
+          headers: {
+            authorization: `${localStorage.getItem("accessToken")}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
       if (response.data.success) {
         setShowToast(true);

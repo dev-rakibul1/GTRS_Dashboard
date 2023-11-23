@@ -14,7 +14,7 @@ function DeletePopup({ isOpen, onClose, user }) {
 
     try {
       const response = await axios.delete(
-        `https://gtrs.vercel.app/api/v1/form-data/review/remove-entry/${user?._id}`
+        `http://localhost:7000/api/v1/form-data/review/remove-entry/${user?._id}`
       );
 
       console.log(response.data);

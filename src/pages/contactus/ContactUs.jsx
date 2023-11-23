@@ -12,14 +12,18 @@ const ContactUs = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const fetchData = (page, search) => {
-    const url = "https://gtrs.vercel.app/api/v1/contact-us/";
+    const url = "http://localhost:7000/api/v1/contact-us/";
     // const pageUrl = `${url}?page=${page}`;
     const pageUrl = `${url}?page=${page}${
       search ? "&searchTerm=" + search : ""
     }`;
     // console.log(pageUrl);
 
-    fetch(pageUrl)
+    fetch(pageUrl, {
+      headers: {
+        authorization: `${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
