@@ -24,13 +24,13 @@ const SingleUser = () => {
               <div className="">
                 <span className="font-bold text-sm">First Name</span>
                 <span className="flex items-center justify-start font-normal">
-                  {formData.firstName ? (
+                  {formData?.firstName ? (
                     <FaRegCheckCircle className="text-green-600" />
                   ) : (
                     <FaRegTimesCircle className="text-red-600" />
                   )}
                   <span className={`ml-2 my-1 text-sm`}>
-                    {formData.firstName ? formData.firstName : "Empty"}
+                    {formData?.firstName ? formData.firstName : "Empty"}
                   </span>
                 </span>
               </div>
@@ -39,13 +39,13 @@ const SingleUser = () => {
               <div className="">
                 <span className="font-bold text-sm">Last Name </span>
                 <span className="flex items-center justify-start font-normal">
-                  {formData.lastName ? (
+                  {formData?.lastName ? (
                     <FaRegCheckCircle className="text-green-600" />
                   ) : (
                     <FaRegTimesCircle className="text-red-600" />
                   )}
                   <span className={`ml-2 my-1 text-sm`}>
-                    {formData.lastName ? formData.lastName : "Empty"}
+                    {formData?.lastName ? formData?.lastName : "Empty"}
                   </span>
                 </span>
               </div>
@@ -54,13 +54,13 @@ const SingleUser = () => {
               <div className="">
                 <span className="font-bold text-sm">Email address</span>
                 <span className="flex items-center justify-start font-normal">
-                  {formData.email ? (
+                  {formData?.email ? (
                     <FaRegCheckCircle className="text-green-600" />
                   ) : (
                     <FaRegTimesCircle className="text-red-600" />
                   )}
                   <span className={`ml-2 my-1 text-sm lowercase`}>
-                    {formData.email ? formData.email : "Empty"}
+                    {formData?.email ? formData?.email : "Empty"}
                   </span>
                 </span>
               </div>
@@ -69,13 +69,13 @@ const SingleUser = () => {
               <div className="">
                 <span className="font-bold text-sm">Country </span>
                 <span className="flex items-center justify-start font-normal">
-                  {formData.country ? (
+                  {formData?.country ? (
                     <FaRegCheckCircle className="text-green-600" />
                   ) : (
                     <FaRegTimesCircle className="text-red-600" />
                   )}
                   <span className={`ml-2 my-1 text-sm`}>
-                    {formData.country ? formData.country : "Empty"}
+                    {formData?.country ? formData?.country : "Empty"}
                   </span>
                 </span>
               </div>
@@ -84,13 +84,13 @@ const SingleUser = () => {
               <div className="">
                 <span className="font-bold text-sm">Company </span>
                 <span className="flex items-center justify-start font-normal">
-                  {formData.company ? (
+                  {formData?.company ? (
                     <FaRegCheckCircle className="text-green-600" />
                   ) : (
                     <FaRegTimesCircle className="text-red-600" />
                   )}
                   <span className={`ml-2 my-1 text-sm`}>
-                    {formData.company ? formData.company : "Empty"}
+                    {formData?.company ? formData?.company : "Empty"}
                   </span>
                 </span>
               </div>
@@ -99,49 +99,49 @@ const SingleUser = () => {
               <div className="">
                 <span className="font-bold text-sm">Office Phone</span>
                 <span className="flex items-center justify-start font-normal">
-                  {formData.phone ? (
+                  {formData?.phone ? (
                     <FaRegCheckCircle className="text-green-600" />
                   ) : (
                     <FaRegTimesCircle className="text-red-600" />
                   )}
                   <span className={`ml-2 my-1 text-sm`}>
-                    {formData.phone ? formData.phone : "Empty"}
+                    {formData?.phone ? formData?.phone : "Empty"}
                   </span>
                 </span>
               </div>
 
               {/* data 8 */}
-              {formData.value && (
+              {formData?.value && (
                 <div className="">
                   <div className="">
                     <span className="font-bold text-sm"> Inquiry For</span>
                     <span className="flex items-center justify-start font-normal">
-                      {formData.value ? (
+                      {formData?.value ? (
                         <FaRegCheckCircle className="text-green-600" />
                       ) : (
                         <FaRegTimesCircle className="text-red-600" />
                       )}
                       <span className={`ml-2 my-1 text-sm`}>
-                        {formData.value ? formData.value : "Empty"}
+                        {formData?.value ? formData?.value : "Empty"}
                       </span>
                     </span>
                   </div>
                 </div>
               )}
               {/* data 9 */}
-              {formData.productQuery && (
+              {formData?.productQuery && (
                 <div className="">
                   <div className="">
                     <span className="font-bold text-sm"> Product Query</span>
                     <span className="flex items-center justify-start font-normal">
-                      {formData.productQuery ? (
+                      {formData?.productQuery ? (
                         <FaRegCheckCircle className="text-green-600" />
                       ) : (
                         <FaRegTimesCircle className="text-red-600" />
                       )}
                       <span className={`ml-2 my-1 text-sm`}>
-                        {formData.productQuery
-                          ? formData.productQuery
+                        {formData?.productQuery
+                          ? formData?.productQuery
                           : "Empty"}
                       </span>
                     </span>
@@ -149,7 +149,7 @@ const SingleUser = () => {
                 </div>
               )}
               {/* data 10 */}
-              {formData.quarryFilter && (
+              {formData?.quarryFilter && (
                 <div className="">
                   <div className="">
                     <span className="font-bold text-sm">
@@ -157,14 +157,14 @@ const SingleUser = () => {
                       Quarry Filter (Galaxy, Orbit, Pluse)
                     </span>
                     <span className="flex items-center justify-start font-normal">
-                      {formData.quarryFilter ? (
+                      {formData?.quarryFilter ? (
                         <FaRegCheckCircle className="text-green-600" />
                       ) : (
                         <FaRegTimesCircle className="text-red-600" />
                       )}
                       <span className={`ml-2 my-1 text-sm`}>
-                        {formData.quarryFilter
-                          ? formData.quarryFilter
+                        {formData?.quarryFilter
+                          ? formData?.quarryFilter
                           : "Empty"}
                       </span>
                     </span>
@@ -172,14 +172,14 @@ const SingleUser = () => {
                 </div>
               )}
               {/* data 11 */}
-              {formData.group2.length ? (
+              {formData?.group2.length ? (
                 <div className="">
                   <div className="">
                     <span className="font-bold text-sm"> Inquiry For</span>
                     <span className="flex items-center justify-start font-normal">
                       <span className={`my-1 text-sm`}>
-                        {formData.group2
-                          ? formData.group2?.map((d, i) => (
+                        {formData?.group2
+                          ? formData?.group2?.map((d, i) => (
                               <li key={i + 1}>{d}</li>
                             ))
                           : "Empty"}
@@ -189,36 +189,36 @@ const SingleUser = () => {
                 </div>
               ) : null}
               {/* data 12 */}
-              {formData.group3 && (
+              {formData?.group3 && (
                 <div className="">
                   <div className="">
                     <span className="font-bold text-sm"> group3</span>
                     <span className="flex items-center justify-start font-normal">
-                      {formData.group3 ? (
+                      {formData?.group3 ? (
                         <FaRegCheckCircle className="text-green-600" />
                       ) : (
                         <FaRegTimesCircle className="text-red-600" />
                       )}
                       <span className={`ml-2 my-1 text-sm`}>
-                        {formData.group3 ? formData.group3 : "Empty"}
+                        {formData?.group3 ? formData?.group3 : "Empty"}
                       </span>
                     </span>
                   </div>
                 </div>
               )}
               {/* data 13 */}
-              {formData.group4 && (
+              {formData?.group4 && (
                 <div className="">
                   <div className="">
                     <span className="font-bold text-sm"> group4</span>
                     <span className="flex items-center justify-start font-normal">
-                      {formData.group4 ? (
+                      {formData?.group4 ? (
                         <FaRegCheckCircle className="text-green-600" />
                       ) : (
                         <FaRegTimesCircle className="text-red-600" />
                       )}
                       <span className={`ml-2 my-1 text-sm`}>
-                        {formData.group4 ? formData.group4 : "Empty"}
+                        {formData?.group4 ? formData?.group4 : "Empty"}
                       </span>
                     </span>
                   </div>
@@ -227,13 +227,13 @@ const SingleUser = () => {
             </div>
             <div className="mt-7">
               {/* data 7 */}
-              {formData.message && (
+              {formData?.message && (
                 <div className="">
                   <div className="">
                     <span className="font-bold text-sm"> Message</span>
                     <span className="flex items-center justify-start font-normal">
                       <span className={`my-1 text-sm`}>
-                        {formData.message ? formData.message : "Empty"}
+                        {formData?.message ? formData?.message : "Empty"}
                       </span>
                     </span>
                   </div>

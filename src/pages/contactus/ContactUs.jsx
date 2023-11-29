@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { GrSearch } from "react-icons/gr";
 import { RxDownload } from "react-icons/rx";
 import { Link } from "react-router-dom";
+import Spinner from "../../shared/Spinner";
 import "./ContactUs.css";
 
 const ContactUs = () => {
@@ -12,7 +13,7 @@ const ContactUs = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const fetchData = (page, search) => {
-    const url = "http://localhost:7000/api/v1/contact-us/";
+    const url = "https://gtrs.vercel.app/api/v1/contact-us/";
     // const pageUrl = `${url}?page=${page}`;
     const pageUrl = `${url}?page=${page}${
       search ? "&searchTerm=" + search : ""
@@ -99,9 +100,9 @@ const ContactUs = () => {
         <div className="w-full  mx-auto ">
           <div className="join join-vertical w-full">
             {loading ? (
-              <h1 className="flex items-center justify-center h-screen">
-                Loading...
-              </h1>
+              <div className="grid place-items-center min-h-screen">
+                <Spinner />
+              </div>
             ) : (
               <>
                 <div className="sm:flex items-center justify-between py-4">

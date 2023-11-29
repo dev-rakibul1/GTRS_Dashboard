@@ -4,9 +4,10 @@ import { GrSearch } from "react-icons/gr";
 import { IoWarningOutline } from "react-icons/io5";
 import { RxDownload } from "react-icons/rx";
 import { Link } from "react-router-dom";
+import Spinner from "../../shared/Spinner";
 import "./Dashboard.css";
-const url = "http://localhost:7000/api/v1/form-data";
-// const url = "http://localhost:7000/api/v1/form-data";
+const url = "https://gtrs.vercel.app/api/v1/form-data";
+// const url = "https://gtrs.vercel.app/api/v1/form-data";
 
 const DashboardContentSidebar = () => {
   const [contactUsData, setData] = useState([]);
@@ -104,9 +105,9 @@ const DashboardContentSidebar = () => {
         <div className="w-full  mx-auto ">
           <div className="join join-vertical w-full">
             {loading ? (
-              <h1 className="flex items-center justify-center h-screen">
-                Loading...
-              </h1>
+              <div className="grid place-items-center min-h-screen">
+                <Spinner />
+              </div>
             ) : (
               <>
                 <div className="sm:flex items-center justify-between py-4">

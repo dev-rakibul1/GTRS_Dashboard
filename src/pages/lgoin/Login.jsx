@@ -1,11 +1,17 @@
 // Form.js
 import axios from "axios";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../components/authProvider/AuthProvider";
 
 const Login = () => {
+  const { isAuthenticated } = useContext(AuthContext);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+  const [loginErrors, setLoginErrors] = useState("");
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -40,10 +46,11 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (validateForm()) {
       try {
         const response = await axios.post(
-          "http://localhost:7000/api/v1/auth/login",
+          "https://gtrs.vercel.app/api/v1/auth/login",
           formData,
           {
             headers: {
@@ -55,15 +62,26 @@ const Login = () => {
 
         const accessToken = response.data.data.accessToken;
         localStorage.setItem("accessToken", accessToken);
+
+        // Ensure that navigate("/") is called after setting the accessToken
         navigate("/");
-        console.log(response?.data);
       } catch (error) {
-        console.error("Error submitting form:", error);
+        if (error) {
+          setLoginErrors("Login fail!");
+        } else {
+          setLoginErrors("");
+        }
       }
 
       console.log("Form submitted:", formData);
     } else {
       console.log("Form has errors. Please fix them.");
+    }
+  };
+
+  const handleClick = () => {
+    if (isAuthenticated) {
+      // alert("You are already authenticated!");
     }
   };
 
@@ -74,6 +92,11 @@ const Login = () => {
           <h1 className="text-center font-semibold text-xl uppercase text-gray-600">
             GTRS admin dashboard
           </h1>
+          {loginErrors && (
+            <h4 className="text-center bg-red-100 text-red-600 p-2 w-full rounded-md">
+              {loginErrors}
+            </h4>
+          )}
 
           <input
             type="text"
@@ -100,10 +123,16 @@ const Login = () => {
           <small className="text-red-500">{errors.password}</small>
 
           <button
+            onClick={handleClick}
+            // disabled={isAuthenticated}
             type="submit"
-            className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className={`w-full p-2 text-white rounded  ${
+              isAuthenticated
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-500 hover:bg-blue-600"
+            }`}
           >
-            Login
+            {isAuthenticated ? "Already Authenticated" : "Login"}
           </button>
 
           <p className="text-center mt-3">

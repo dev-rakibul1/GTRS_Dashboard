@@ -13,7 +13,12 @@ function ContactUsDeletePopup({ isOpen, onClose, user }) {
 
     try {
       const response = await axios.delete(
-        `http://localhost:7000/api/v1/contact-us/review-contact-us/remove-entry/${user?._id}`
+        `https://gtrs.vercel.app/api/v1/contact-us/review-contact-us/remove-entry/${user?._id}`,
+        {
+          headers: {
+            authorization: `${localStorage.getItem("accessToken")}`,
+          },
+        }
       );
 
       if (response.data.success) {

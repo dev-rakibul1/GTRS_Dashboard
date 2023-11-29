@@ -1,9 +1,12 @@
 // Form.js
 import axios from "axios";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../components/authProvider/AuthProvider";
 
 const SingUp = () => {
+  const { isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     firstName: "",
@@ -43,7 +46,7 @@ const SingUp = () => {
     }
 
     // Validate phone number
-    const phoneRegex = /^\d{10}$/;
+    const phoneRegex = /^\d{11}$/;
     if (!formData.phone.trim() || !phoneRegex.test(formData.phone)) {
       newErrors.phone = "Valid phone number is required";
       isValid = false;
@@ -64,7 +67,7 @@ const SingUp = () => {
     if (validateForm()) {
       try {
         const response = await axios.post(
-          "http://localhost:7000/api/v1/user/create-user",
+          "https://gtrs.vercel.app/api/v1/user/create-user",
           formData,
           {
             headers: {
@@ -77,6 +80,7 @@ const SingUp = () => {
         const accessToken = response.data.data.accessToken;
         console.log("Server response:", response.data);
         localStorage.setItem("accessToken", accessToken);
+        navigate("/");
       } catch (error) {
         console.error("Error submitting form:", error);
       }
@@ -84,6 +88,12 @@ const SingUp = () => {
       // console.log("Form submitted:", formData);
     } else {
       console.log("Form has errors. Please fix them.");
+    }
+  };
+
+  const handleClick = () => {
+    if (isAuthenticated) {
+      alert("You are already authenticated!");
     }
   };
 
@@ -157,16 +167,22 @@ const SingUp = () => {
           <small className="text-red-500">{errors.password}</small>
 
           <button
+            onClick={handleClick}
+            disabled={isAuthenticated}
             type="submit"
-            className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className={`w-full p-2 text-white rounded  ${
+              isAuthenticated
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-500 hover:bg-blue-600"
+            }`}
           >
-            Sign Up
+            {isAuthenticated ? "Already Authenticated" : "Sign up"}
           </button>
 
           <p className="text-center mt-3">
             I have an account?
             <Link className="ml-2" to="/authenticate-layout/login">
-              Login
+              Sign in
             </Link>
           </p>
         </form>

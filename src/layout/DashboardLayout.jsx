@@ -1,6 +1,7 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 import { Link, Outlet } from "react-router-dom";
+import { AuthContext } from "../components/authProvider/AuthProvider";
 import Footer from "../components/share/footer/Footer";
 import Navbar from "../components/share/manu/Navbar";
 import UploaderTabs from "../components/tabs/UploaderTabs";
@@ -9,6 +10,7 @@ import "./DashboardLayout.css";
 export const NAVBAR_CONTEXT = createContext();
 
 const DashboardLayout = () => {
+  const { users } = useContext(AuthContext);
   const [fileUploadToggle, setFileUploadToggle] = useState(false);
   const [sidebarToggle, setSidebarToggle] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -58,6 +60,13 @@ const DashboardLayout = () => {
         </Link>
       </li>
 
+      {users?.data?.role === "super_admin" && (
+        <li className="router-items">
+          <Link to="/user" className="router-link">
+            User
+          </Link>
+        </li>
+      )}
       <li className="router-items dropdown">
         <Link
           to="/"
@@ -121,11 +130,13 @@ const DashboardLayout = () => {
             </div>
 
             {/* login */}
-            <div className="login absolute bottom-0 left-0 p-4">
-              <Link to="/authenticate-layout/login">
-                <button className="text-gray-400">Login</button>
-              </Link>
-            </div>
+            {!users?.data?.email && (
+              <div className="login absolute bottom-0 left-0 p-4">
+                <Link to="/authenticate-layout/login">
+                  <button className="text-gray-400">Login</button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
         {/* -----------------START OFF CANVAS SIDEBAR ROUTE HANDLER--------------------- */}

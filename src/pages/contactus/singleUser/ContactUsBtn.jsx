@@ -1,11 +1,13 @@
 import exportFromJSON from "export-from-json";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { RxDownload } from "react-icons/rx";
 import { SlArrowLeft, SlPencil, SlTrash } from "react-icons/sl";
 import { Link, useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../../components/authProvider/AuthProvider";
 import ContactUsDeletePopup from "../ContactUsDelete/ContactUsDeletePopup";
 
 const ContactUsBtn = () => {
+  const { users } = useContext(AuthContext);
   const storedData = useLoaderData();
   const storedEntry = storedData?.data;
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -51,28 +53,36 @@ const ContactUsBtn = () => {
             </button>
           </div>
           {/* update btn */}
-          <div className="tooltip" data-tip="Edit">
-            <Link to={`/review-contact-us/${storedEntry?._id}`}>
-              <button className=" py-1 px-2 rounded-sm mx-1 text-gray-500">
-                <SlPencil />
-              </button>
-            </Link>
-          </div>
+          {users?.data?.role === "super_admin" ||
+          users?.data?.role === "admin" ||
+          users?.data?.role === "editor" ? (
+            <div className="tooltip" data-tip="Edit">
+              <Link to={`/review-contact-us/${storedEntry?._id}`}>
+                <button className=" py-1 px-2 rounded-sm mx-1 text-gray-500">
+                  <SlPencil />
+                </button>
+              </Link>
+            </div>
+          ) : null}
+
           {/* delete btn */}
-          <div className="tooltip" data-tip="Delete">
-            <button
-              className=" py-1 px-2 rounded-sm mx-1 text-gray-500"
-              onClick={handleOpenPopup}
-            >
-              <SlTrash />
-            </button>
-            <ContactUsDeletePopup
-              isOpen={isPopupOpen}
-              onClose={handleClosePopup}
-              user={storedEntry}
-              // user={user}
-            />
-          </div>
+          {users?.data?.role === "super_admin" ||
+          users?.data?.role === "admin" ? (
+            <div className="tooltip" data-tip="Delete">
+              <button
+                className=" py-1 px-2 rounded-sm mx-1 text-gray-500"
+                onClick={handleOpenPopup}
+              >
+                <SlTrash />
+              </button>
+              <ContactUsDeletePopup
+                isOpen={isPopupOpen}
+                onClose={handleClosePopup}
+                user={storedEntry}
+                // user={user}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     </>

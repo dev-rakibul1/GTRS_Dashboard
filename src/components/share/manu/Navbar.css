@@ -21,3 +21,15 @@
 .navbar-toggler:first-child {
   margin-top: 0 !;
 }
+
+/* user-profile-dropdown */
+.user-profile-dropdown {
+  position: absolute;
+  top: 100%;
+  background: #fff;
+  width: 100%;
+  padding: 5px;
+  margin-top: 18px;
+  width: 125px;
+  right: 0;
+}

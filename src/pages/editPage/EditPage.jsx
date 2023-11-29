@@ -31,7 +31,7 @@ const EditPage = () => {
 
     try {
       const response = await axios.patch(
-        `http://localhost:7000/api/v1/form-data/review/update-entry/${storedEntry._id}`,
+        `https://gtrs.vercel.app/api/v1/form-data/review/update-entry/${storedEntry._id}`,
         newEntry,
         {
           headers: {
