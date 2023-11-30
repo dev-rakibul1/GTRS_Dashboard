@@ -55,6 +55,7 @@ const router = createBrowserRouter([
       },
       { path: "/edit-profile/:id", element: <EditProfile /> },
       { path: "/password-change", element: <ChangePassword /> },
+      { path: "/add-user", element: <Register /> },
       {
         path: "/single-user/:id",
         loader: ({ params }) =>
@@ -133,10 +134,7 @@ const router = createBrowserRouter([
   {
     path: "/authenticate-layout",
     element: <LoginLayout />,
-    children: [
-      { path: "/authenticate-layout/login", element: <Login /> },
-      { path: "/authenticate-layout/register", element: <Register /> },
-    ],
+    children: [{ path: "/authenticate-layout/login", element: <Login /> }],
   },
 ]);
 

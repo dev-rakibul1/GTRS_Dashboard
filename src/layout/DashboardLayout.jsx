@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { AuthContext } from "../components/authProvider/AuthProvider";
 import Footer from "../components/share/footer/Footer";
 import Navbar from "../components/share/manu/Navbar";
@@ -49,30 +49,34 @@ const DashboardLayout = () => {
   const routeItems = (
     <>
       <li className="router-items">
-        <Link to="/" className="router-link">
+        <NavLink to="/" className="router-link">
           KYC Request
-        </Link>
+        </NavLink>
       </li>
 
       <li className="router-items">
-        <Link to="/contact-us" className="router-link">
+        <NavLink to="/contact-us" className="router-link">
           Contact Request
-        </Link>
+        </NavLink>
       </li>
 
       {users?.data?.role === "super_admin" && (
         <li className="router-items">
-          <Link to="/user" className="router-link">
-            User
-          </Link>
+          <NavLink to="/user" className="router-link">
+            Manage User
+          </NavLink>
+        </li>
+      )}
+
+      {users?.data?.role === "super_admin" && (
+        <li className="router-items">
+          <NavLink to="/add-user" className="router-link">
+            Add User
+          </NavLink>
         </li>
       )}
       <li className="router-items dropdown">
-        <Link
-          to="/"
-          className="router-link  dropdown-toggle "
-          onClick={handleToggle}
-        >
+        <Link className="router-link  dropdown-toggle " onClick={handleToggle}>
           <div className="flex items-center justify-between">
             <span>Status</span>
             {isOpen ? (
@@ -86,18 +90,18 @@ const DashboardLayout = () => {
               isOpen ? "open" : ""
             }`}
           >
-            <Link
+            <NavLink
               to="/general"
               className=" hover:bg-gray-500 p-2 mt-2 block w-full rounded-md"
             >
               General
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/ranking"
               className=" hover:bg-gray-500 p-2 mt-2 block w-full rounded-md"
             >
               Contributors ranking
-            </Link>
+            </NavLink>
           </div>
         </Link>
       </li>
@@ -116,13 +120,13 @@ const DashboardLayout = () => {
           <div className="freepik-container">
             <div className="nav-area">
               <div className="max-w-[180px] py-7">
-                <Link to="/">
+                <NavLink to="/">
                   <img
                     src="/images/logo.png"
                     alt="logo"
                     className="max-w-full"
                   />
-                </Link>
+                </NavLink>
               </div>
 
               {/* route */}
@@ -132,9 +136,9 @@ const DashboardLayout = () => {
             {/* login */}
             {!users?.data?.email && (
               <div className="login absolute bottom-0 left-0 p-4">
-                <Link to="/authenticate-layout/login">
+                <NavLink to="/authenticate-layout/login">
                   <button className="text-gray-400">Login</button>
-                </Link>
+                </NavLink>
               </div>
             )}
           </div>
@@ -149,13 +153,13 @@ const DashboardLayout = () => {
           <div className="freepik-container">
             <div className="nav-area">
               <div className="max-w-[180px] py-7">
-                <Link to="/">
+                <NavLink to="/">
                   <img
                     src="/images/logo.png"
                     alt="logo"
                     className="max-w-full"
                   />
-                </Link>
+                </NavLink>
               </div>
 
               {/* route */}

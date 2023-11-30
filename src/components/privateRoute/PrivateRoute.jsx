@@ -24,11 +24,21 @@ const PrivateRoute = ({ children }) => {
       to="/authenticate-layout/login"
       state={{ from: location }}
       replace
-    ></Navigate>
+    />
   ) : (
-    // <Navigate to="/authenticate-layout/login" replace />
     children
   );
+
+  // return !users?.data?.email ? (
+  //   <Navigate
+  //     to="/authenticate-layout/login"
+  //     state={{ from: location }}
+  //     replace
+  //   ></Navigate>
+  // ) : (
+  //   // <Navigate to="/authenticate-layout/login" replace />
+  //   children
+  // );
   // <Navigate
   //   to="/authenticate-layout/login"
   //   state={{ from: location }}

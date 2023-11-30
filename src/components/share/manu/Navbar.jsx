@@ -57,6 +57,8 @@ const Navbar = () => {
       .then((response) => {
         console.log("Response:", response.data);
         localStorage.removeItem("accessToken");
+        window.location.reload();
+        window.location.href = "/authenticate-layout/login";
         navigate("/authenticate-layout/login");
       })
       .catch((error) => {

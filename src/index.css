@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active {
+  background-color: #3f464c;
+  color: #fff;
+}

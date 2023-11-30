@@ -1,7 +1,7 @@
 // Form.js
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../components/authProvider/AuthProvider";
 
 const Login = () => {
@@ -11,6 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [loginErrors, setLoginErrors] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -49,31 +50,36 @@ const Login = () => {
 
     if (validateForm()) {
       try {
+        setLoading(true);
+
+        // Make a request to the login endpoint
         const response = await axios.post(
           "https://gtrs.vercel.app/api/v1/auth/login",
           formData,
           {
             headers: {
-              authorization: `${localStorage.getItem("accessToken")}`,
               "Content-Type": "application/json",
             },
           }
         );
 
+        // Check if the response contains the accessToken
         const accessToken = response.data.data.accessToken;
+
+        // Set the accessToken in localStorage
         localStorage.setItem("accessToken", accessToken);
 
-        // Ensure that navigate("/") is called after setting the accessToken
-        navigate("/");
-      } catch (error) {
-        if (error) {
-          setLoginErrors("Login fail!");
-        } else {
-          setLoginErrors("");
-        }
-      }
+        window.location.reload();
+        window.location.href = "/";
 
-      console.log("Form submitted:", formData);
+        // Navigate after setting the accessToken
+        navigate(from);
+      } catch (error) {
+        console.error("Login failed:", error);
+        setLoginErrors("Login failed!");
+      } finally {
+        setLoading(false);
+      }
     } else {
       console.log("Form has errors. Please fix them.");
     }
@@ -124,7 +130,7 @@ const Login = () => {
 
           <button
             onClick={handleClick}
-            // disabled={isAuthenticated}
+            disabled={isAuthenticated}
             type="submit"
             className={`w-full p-2 text-white rounded  ${
               isAuthenticated
@@ -132,15 +138,12 @@ const Login = () => {
                 : "bg-blue-500 hover:bg-blue-600"
             }`}
           >
-            {isAuthenticated ? "Already Authenticated" : "Login"}
+            {isAuthenticated
+              ? "Already Authenticated"
+              : loading
+              ? "loading..."
+              : "Log in"}
           </button>
-
-          <p className="text-center mt-3">
-            I have no account?
-            <Link className="ml-2" to="/authenticate-layout/register">
-              Sign up
-            </Link>
-          </p>
         </form>
       </div>
     </>

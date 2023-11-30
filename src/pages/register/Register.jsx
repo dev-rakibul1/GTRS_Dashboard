@@ -1,13 +1,11 @@
 // Form.js
 import axios from "axios";
-import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../components/authProvider/AuthProvider";
+import React, { useState } from "react";
 
 const SingUp = () => {
-  const { isAuthenticated } = useContext(AuthContext);
-  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+  const [registerError, setRegisterErrors] = useState("");
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -66,6 +64,7 @@ const SingUp = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
+        setLoading(true);
         const response = await axios.post(
           "https://gtrs.vercel.app/api/v1/user/create-user",
           formData,
@@ -77,12 +76,21 @@ const SingUp = () => {
           }
         );
 
-        const accessToken = response.data.data.accessToken;
-        console.log("Server response:", response.data);
-        localStorage.setItem("accessToken", accessToken);
-        navigate("/");
+        if (response) {
+          setRegisterErrors(response?.data?.message);
+        } else {
+          setRegisterErrors("");
+        }
       } catch (error) {
-        console.error("Error submitting form:", error);
+        if (error) {
+          setRegisterErrors(
+            "User create fail! Email & phone number must be unique."
+          );
+        } else {
+          setRegisterErrors("");
+        }
+      } finally {
+        setLoading(false);
       }
 
       // console.log("Form submitted:", formData);
@@ -91,19 +99,18 @@ const SingUp = () => {
     }
   };
 
-  const handleClick = () => {
-    if (isAuthenticated) {
-      alert("You are already authenticated!");
-    }
-  };
-
   return (
     <>
       <div className="max-w-md mx-auto flex justify-center items-center min-h-screen">
         <form onSubmit={handleSubmit} className="space-y-4 px-3">
-          <h1 className="text-center font-semibold text-xl uppercase text-gray-600">
-            GTRS admin dashboard
+          <h1 className="text-center font-semibold text-xl  text-gray-600">
+            Add a new user
           </h1>
+          {registerError && (
+            <h4 className="text-center p-2 bg-gray-300 my-2">
+              {registerError}
+            </h4>
+          )}
           <div className="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-x-4">
             <div className="">
               <input
@@ -167,24 +174,11 @@ const SingUp = () => {
           <small className="text-red-500">{errors.password}</small>
 
           <button
-            onClick={handleClick}
-            disabled={isAuthenticated}
             type="submit"
-            className={`w-full p-2 text-white rounded  ${
-              isAuthenticated
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-blue-500 hover:bg-blue-600"
-            }`}
+            className={`w-full p-2 text-white rounded  bg-blue-500 hover:bg-blue-600`}
           >
-            {isAuthenticated ? "Already Authenticated" : "Sign up"}
+            {loading ? "Processing..." : " Add new user"}
           </button>
-
-          <p className="text-center mt-3">
-            I have an account?
-            <Link className="ml-2" to="/authenticate-layout/login">
-              Sign in
-            </Link>
-          </p>
         </form>
       </div>
     </>
